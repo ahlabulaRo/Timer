@@ -14,12 +14,9 @@ int verificare_citire(char* timp , int* vec){
     if((strstr(timp , "ore") == NULL) &&
     (strstr(timp , "minute") == NULL) &&
     (strstr(timp , "secunde") ==  NULL))  return 0;
-
+    
     if( (vec[0] < 0) || (vec[1] < 0) || (vec[2] < 0) ) return 0;
-
     return 1;
-
-    //Se adauga cazul in care h, m, s != 0
 }
 
 int* vector_date(char* timp){
