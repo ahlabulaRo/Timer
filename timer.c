@@ -5,7 +5,7 @@
 #include<unistd.h>
 
 void citire(char** timp){
-    printf("Type the value of the time for timer(x hours  y minutes z seconds): ");
+    printf("Type the value of the time for timer(x hours y minutes z seconds): ");
     fgets((*timp) ,  100 , stdin);
     (*timp)[strcspn(*timp , "\n")] = '\0';
 }
