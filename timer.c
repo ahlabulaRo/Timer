@@ -5,15 +5,15 @@
 #include<unistd.h>
 
 void citire(char** timp){
-    printf("Introduceti durata de timp pentru temporizator(x ore  y minute z secunde): ");
+    printf("Type the value of the time for timer(x hours  y minutes z seconds): ");
     fgets((*timp) ,  100 , stdin);
     (*timp)[strcspn(*timp , "\n")] = '\0';
 }
 
 int verificare_citire(char* timp , int* vec){
-    if((strstr(timp , "ore") == NULL) &&
-    (strstr(timp , "minute") == NULL) &&
-    (strstr(timp , "secunde") ==  NULL))  return 0;
+    if((strstr(timp , "hours") == NULL) &&
+    (strstr(timp , "minutes") == NULL) &&
+    (strstr(timp , "seconds") ==  NULL))  return 0;
     
     if( (vec[0] < 0) || (vec[1] < 0) || (vec[2] < 0) ) return 0;
     return 1;
@@ -27,21 +27,21 @@ int* vector_date(char* timp){
     copie[99]='\0';
 
     char* p;
-    p=strstr(copie , "ore");
+    p=strstr(copie , "hours");
     if(p != NULL){
         if (isdigit(*(p - 2)) && !isdigit(*(p - 3))) {
             vec[0] = atoi(p - 2);
             }else vec[0] = atoi(p - 3);
         }
 
-    p = strstr(copie, "minute");
+    p = strstr(copie, "minutes");
     if (p != NULL) {
         if (isdigit(*(p - 2)) && !isdigit(*(p - 3))) {
             vec[1] = atoi(p - 2);
             }else vec[1] = atoi(p - 3);
         }
 
-    p = strstr(copie, "secunde");
+    p = strstr(copie, "seconds");
     if (p != NULL) {
         if (isdigit(*(p - 2)) && !isdigit(*(p - 3))) {
             vec[2] = atoi(p - 2);
@@ -54,7 +54,7 @@ int* vector_date(char* timp){
 
 void temporizator(int h , int m , int s){
     while(h>0 || m>0 || s>0){
-        printf("\rOre:%3d\t Minute:%3d\t Secunde:%3d\t",h,m,s);
+        printf("\rHours:%3d\t Minutes:%3d\t Seconds:%3d\t",h,m,s);
         fflush(stdout);
         sleep(1);
         if(s>0) s--;
@@ -73,18 +73,18 @@ void temporizator(int h , int m , int s){
             }
         }
     }
-    printf("\nTimpul a expirat!\n");
+    printf("\nTime is out!\n");
 }
 
 int main(){
     char* timp = (char*)malloc(100 * sizeof(char));
     citire(&timp);
     int* vec = vector_date(timp);
-    if(!verificare_citire(timp , vec)) printf("Date invalide!\n");
+    if(!verificare_citire(timp , vec)) printf("Invalid data!\n");
     else{
-        printf("Timpul setat este: %d ore, %d minute, %d secunde!\n" , vec[0] , vec[1] , vec[2]);
+        printf("Time set at: %d hours, %d minutes, %d seconds!\n" , vec[0] , vec[1] , vec[2]);
         sleep(1);
-        printf("Incepem in: 3");
+        printf("We'll start in: 3");
         fflush(stdout);
         sleep(1);
         printf(", 2");
@@ -93,7 +93,7 @@ int main(){
         printf(", 1\n");
         fflush(stdout);
         sleep(1);
-        printf("Acum:\n");
+        printf("GO:\n");
     }
     temporizator(vec[0] , vec[1] , vec[2]);
     free(vec);
